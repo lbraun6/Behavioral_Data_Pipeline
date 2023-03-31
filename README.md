@@ -5,17 +5,17 @@ Instructions for use:
 1. Download data_import.py, parameter_calculation.py, data_compilation.py, and "Sample Behavior Files" folder
 2. Ensure that you have the proper packages installed. Running this script requires the following Python packages: 
 
--pandas
+  -pandas
 
--matplotlib
+  -matplotlib
 
--numpy
+  -numpy
 
--os
+  -os
 
--scipy
+  -scipy
 
--scikit_posthocs
+  -scikit_posthocs
 
 4. Open data_import.py
 5. Run data_import.py
