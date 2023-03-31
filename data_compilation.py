@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import os
 from scipy import stats
-from data_import import import_data
 import scikit_posthocs as sp
 
 
