@@ -6,10 +6,15 @@ Instructions for use:
 2. Ensure that you have the proper packages installed. Running this script requires the following Python packages: 
 
 -pandas
+
 -matplotlib
+
 -numpy
+
 -os
+
 -scipy
+
 -scikit_posthocs
 
 4. Open data_import.py
