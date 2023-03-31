@@ -40,15 +40,17 @@ def calculate_oft(path, file):
 
 # Done
 def calculate_epm(path, file):
-    raw_data = pd.read_excel(path + "\\" + file, index_col=1, header=0, sheet_name="Analysis")
+    raw_data = pd.read_excel(path + "\\" + file, index_col=1, header=[0, 1, 2, 3], sheet_name="Analysis")
     split_file = file.split()
     epm_frame = {"Mouse": [], "Condition": [], "Cumulative duration in closed arm (s)": []}
     for mouse in range(len(raw_data.index)):
         if mouse > 2:
-            if raw_data["In zone.16"][mouse] > 0:
+            if raw_data["In zone", "Closed arms / Center-point", "Cumulative Duration", "s"][mouse] > 0:
                 epm_frame["Mouse"] += [raw_data.index[mouse]]
-                epm_frame["Condition"] += [raw_data["Unnamed: 0"][mouse]]
-                epm_frame["Cumulative duration in closed arm (s)"] += [raw_data["In zone.16"][mouse]]
+                epm_frame["Condition"] += [raw_data["Unnamed: 0_level_0", "Unnamed: 0_level_1", "Unnamed: 0_level_2",
+                                                    "Unnamed: 0_level_3"][mouse]]
+                epm_frame["Cumulative duration in closed arm (s)"] += [raw_data["In zone", "Closed arms / Center-point",
+                                                                                "Cumulative Duration", "s"][mouse]]
 
     epm_frame = pd.DataFrame(epm_frame)
     epm_frame.to_csv(path + "\\" + split_file[-3] + " " + split_file[-2] + " " + split_file[-1][0] + " EPM Data.csv", index=False)
@@ -174,7 +176,7 @@ def calculate_water_consumption(path, file):
 
 # Done
 def calculate_fst(path, file):
-    raw_data = pd.read_excel(path + "\\" + file, sheet_name="Sheet1")
+    raw_data = pd.read_excel(path + "\\" + file)
     split_file = file.split()
     fst_frame = {"Mouse": [], "Condition": [], "Time spent in immobility (s)": []}
     for mouse in range(len(raw_data["ID"])):
@@ -186,7 +188,6 @@ def calculate_fst(path, file):
             immobility = 240 - ((int(split_mobility[0]) * 60) + int(split_mobility[1]))
             fst_frame["Time spent in immobility (s)"] += [immobility]
 
-    print(fst_frame)
     fst_frame = pd.DataFrame(fst_frame)
     fst_frame.to_csv(path + "\\" + split_file[-3] + " " + split_file[-2] + " " + split_file[-1][0] + " FST Data.csv",
                      index=False)

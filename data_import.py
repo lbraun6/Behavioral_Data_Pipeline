@@ -6,7 +6,9 @@ from parameter_calculation import calculate_epm, calculate_locomotion, calculate
     calculate_fst, calculate_water_consumption, calculate_sucrose_consumption, calculate_body_weight, \
     calculate_social_interaction
 
-#
+# This script takes raw output files for rodent behavioral tasks from Noldus Ethovision, extracts the relevant
+# information for the calculation of standard behavioral parameters, and compiles it into a Microsoft Excel file for
+# further analysis and visualization.
 
 
 def import_data():
@@ -34,25 +36,30 @@ def import_data():
 
         for file in files:
             if file.find("Body Weight") >= 0:
-                bw_column += calculate_body_weight(path + "\\" + folder, file)
+                bw_column += [calculate_body_weight(path + "\\" + folder, file)]
             if file.find("OFT") >= 0:
-                locomotion_column += calculate_locomotion(path + "\\" + folder, file)
+                locomotion_column += [calculate_locomotion(path + "\\" + folder, file)]
             if file.find("OFT") >= 0:
-                oft_column += calculate_oft(path + "\\" + folder, file)
+                oft_column += [calculate_oft(path + "\\" + folder, file)]
             if file.find("NOR") >= 0:
-                nor_column += calculate_nor(path + "\\" + folder, file)
+                nor_column += [calculate_nor(path + "\\" + folder, file)]
             if file.find("NSF") >= 0:
-                nsf_column += calculate_nsf(path + "\\" + folder, file)
+                nsf_column += [calculate_nsf(path + "\\" + folder, file)]
             if file.find("EPM") >= 0:
-                epm_column += calculate_epm(path + "\\" + folder, file)
+                epm_column += [calculate_epm(path + "\\" + folder, file)]
             if file.find("FST") >= 0:
-                fst_column += calculate_fst(path + "\\" + folder, file)
+                fst_column += [calculate_fst(path + "\\" + folder, file)]
             if file.find("Social Interaction") >= 0:
-                social_interaction_column += calculate_social_interaction(path + "\\" + folder, file)
+                social_interaction_column += [calculate_social_interaction(path + "\\" + folder, file)]
             if file.find("Sucrose") >= 0:
-                sucrose_column += calculate_sucrose_consumption(path + "\\" + folder, file)
+                sucrose_column += [calculate_sucrose_consumption(path + "\\" + folder, file)]
             if file.find("Sucrose") >= 0:
-                water_column += calculate_water_consumption(path + "\\" + folder, file)
+                water_column += [calculate_water_consumption(path + "\\" + folder, file)]
+
+        for column in [bw_column, locomotion_column, oft_column, nor_column, nsf_column, epm_column, fst_column,
+                       social_interaction_column, sucrose_column, water_column]:
+            if len(cohort_column) > len(column):
+                column += [np.NaN]
 
     clean_data = pd.DataFrame({
 
@@ -67,6 +74,7 @@ def import_data():
         "sucrose": sucrose_column,
         "water": water_column})
 
+    print(clean_data)
     return clean_data
 
 
