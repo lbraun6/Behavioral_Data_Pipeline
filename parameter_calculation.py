@@ -82,7 +82,6 @@ def calculate_nor(path, file):
     raw_data["Unnamed: 4_level_0", "Unnamed: 4_level_1", "Unnamed: 4_level_2", "Unnamed: 4_level_3"].replace(
         "For Nose-point in Familiar cumulative 1.2", "For Nose-point in object 2", inplace=True)
 
-    raw_data.to_excel("test.xlsx")
     for mouse in raw_data.index:
         for trial in range(len(raw_data["Unnamed: 4_level_0", "Unnamed: 4_level_1", "Unnamed: 4_level_2",
                                         "Unnamed: 4_level_3"][mouse])):
